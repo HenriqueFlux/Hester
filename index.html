@@ -13,7 +13,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             min-height: 100vh;
         }
         .container {
@@ -24,6 +24,7 @@
             border-radius: 12px;
             max-width: 600px;
             width: 90%;
+            margin-top: 4rem;
         }
         .photo {
             width: 100%;
@@ -35,6 +36,13 @@
             line-height: 1.6;
             color: #333;
             margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .poem.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         iframe {
             border-radius: 12px;
@@ -45,10 +53,9 @@
     <div class="container">
         <!-- Imagem relacionada ao poema -->
         <img src="imagens/943b9766-da4b-44c1-9bfd-2a697e0640d8.jpg" alt="Imagem do poema" class="photo">
-          <!-- Imagem relacionada ao poema -->
         <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2ScAPgiv2nJmADqClv28ce?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         <!-- O poema -->
-        <div class="poem">
+        <div class="poem" id="poem">
             as vezes me pego pensando<br> 
             porquê não demos certo<br>
             mas logo vem a resposta na minha mente<br>
@@ -80,5 +87,19 @@
             por que por mais que eu tenha escrito ele todo, você foi o tema.<br>
         </div>
     </div>
+
+    <script>
+        // Função para revelar o poema ao rolar
+        function revealOnScroll() {
+            const poem = document.getElementById('poem');
+            const rect = poem.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 100) {
+                poem.classList.add('visible');
+            }
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+    </script>
 </body>
 </html>
